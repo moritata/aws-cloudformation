@@ -6,7 +6,6 @@
     "VPC" : {
       "Type" : "AWS::EC2::VPC",
       "Properties" : {
-        "Name" : "CF-Test",
         "CidrBlock" : "10.0.0.0/16",
         "EnableDnsSupport" : "true",
         "EnableDnsHostnames" : "true",
@@ -54,6 +53,14 @@
         "RouteTableId" : { "Ref" : "PublicRouteTable" },
         "DestinationCidrBlock" : "0.0.0.0/0",
         "GatewayId" : { "Ref" : "InternetGateway" }
+      }
+    },
+
+    "PublicSubnetRouteTableAssociation" : {
+      "Type" : "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties" : {
+        "RouteTableId" : { "Ref" : "PublicRouteTable" },
+        "SubnetId" : { "Ref" : "PublicSubnet" }
       }
     },
 
