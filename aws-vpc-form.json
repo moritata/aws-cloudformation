@@ -23,6 +23,16 @@
       }
     },
 
+    "PrivateSubnet" : {
+      "Type" : "AWS::EC2::Subnet",
+      "Properties" : {
+        "VpcId" : { "Ref" : "VPC" },
+        "CidrBlock" : "10.0.1.0/24",
+        "AvailabilityZone" : { "Fn::Select" : [ "0", { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+        "Tags" : [ {"Key" : "StackID", "Value" : { "Ref" : "AWS::StackId"} } ]
+      }
+    },
+
     "InternetGateway" : {
       "Type" : "AWS::EC2::InternetGateway",
       "Properties" : {
@@ -77,15 +87,15 @@
         },
         {
           "IpProtocol" : "tcp",
-          "FromPort" : "3000",
-          "ToPort" : "3004",
+          "FromPort" : "80",
+          "ToPort" : "80",
           "CidrIp" : "0.0.0.0/0"
 
         },
         {
           "IpProtocol" : "tcp",
-          "FromPort" : "8081",
-          "ToPort" : "8081",
+          "FromPort" : "443",
+          "ToPort" : "443",
           "CidrIp" : "0.0.0.0/0"
 
         },
